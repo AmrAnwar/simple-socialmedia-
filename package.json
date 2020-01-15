@@ -1,0 +1,35 @@
+{
+    "name": "simple",
+    "version": "0.0.1",
+    "description": "Backend of a simple social website",
+    "main": "index.js",
+    "scripts": {
+        "start": "NODE_ENV=dev nodemon index.js",
+        "test": "NODE_ENV=test jest --verbose --runInBand"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AmrAnwar/simple-socialmedia-backend.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AmrAnwar/simple-socialmedia-backend/issues"
+    },
+    "homepage": "https://github.com/AmrAnwar/simple-socialmedia-backend#readme",
+    "devDependencies": {
+        "dotenv": "^8.2.0",
+        "eslint": "^6.8.0",
+        "jest": "^24.9.0",
+        "nodemon": "^2.0.2",
+        "supertest": "^4.0.2"
+    },
+    "dependencies": {
+        "bcrypt": "^3.0.7",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.8.7",
+        "mongoose-unique-validator": "^2.0.3"
+    }
+}
