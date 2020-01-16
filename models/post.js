@@ -1,12 +1,19 @@
 const mongoose = require('mongoose');
 
-const PostSchema = new mongoose.Schema({
-    id: mongoose.Types.ObjectId,
-    body: String,
-    threads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }],
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+const postSchema = new mongoose.Schema(
+    {
+        body: String,
+        threads: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Thread' } ],
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    },
+    { timestamps: true }
+);
 
-}, { timestamps: true });
+postSchema.set('toJSON', {
+    transform: (doc, obj) => {
+        obj.ـid = obj._id.toString();
+        delete obj.__v;
+    }
+});
 
-
-mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Post', postSchema);
