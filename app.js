@@ -15,6 +15,10 @@ mongoose.connect(config.MONGODB_URI, config.DBConfig)
         console.error('[!] error connecting to MongoDB:', error.message);
     });
 
+require('./models/user');
+require('./models/post');
+require('./models/thread');
+
 const app = express();
 
 app.use(cors());
