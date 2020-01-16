@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var PostSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
     id: mongoose.Types.ObjectId,
     body: String,
     threads: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Thread' }],

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     id: mongoose.Types.ObjectId,
     username: { type: String, lowercase: true, unique: true,
         required: [true, 'can\'t be blank'],
