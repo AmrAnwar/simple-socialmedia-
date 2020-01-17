@@ -17,8 +17,6 @@ mongoose.connect(config.MONGODB_URI, config.DBConfig)
 
 const app = express();
 
-
-app.use(require('./controller'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(middlewares.tokenParser);
