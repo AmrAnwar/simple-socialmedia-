@@ -1,4 +1,4 @@
 module.exports = {
-    //silent: true,
+    silent: true,
     testEnvironment: 'node'
 };

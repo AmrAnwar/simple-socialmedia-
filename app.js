@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const config = require('./utils/config');
 const middlewares = require('./utils/middlewares');
+const loginRouter = require('./controllers/login');
 
 console.log('[*] connecting to MongoDB ...');
 mongoose.connect(config.MONGODB_URI, config.DBConfig)
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 app.use(middlewares.tokenParser);
 app.use(middlewares.requestLogger);
 
-
+app.use('/api/login', loginRouter);
 
 app.use(middlewares.unknownEndpoint);
 app.use(middlewares.errorHandler);
