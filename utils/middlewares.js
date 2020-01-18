@@ -40,9 +40,28 @@ function errorHandler(error, request, response, next) {
     next(error);
 }
 
+function jsonPagination(request, response, next){
+    const default_limit = 10;
+    const default_offset = 0;
+    if (typeof request.query.limit !== 'undefined'){ 
+        request.query.limit = Number(request.query.limit);
+    }
+    else{
+        request.query.limit = default_limit;
+    }
+    if (typeof request.query.offset !== 'undefined'){ 
+        request.query.offset = Number(request.query.offset);
+    }
+    else{
+        request.query.offset = default_offset;
+    }
+    next();
+}
+
 module.exports = {
     requestLogger,
     tokenParser,
     unknownEndpoint,
     errorHandler,
+    jsonPagination,
 };

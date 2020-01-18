@@ -24,6 +24,7 @@ app.use(middlewares.tokenParser);
 app.use(middlewares.requestLogger);
 
 app.use('/api/login', loginRouter);
+app.use('/', require('./controllers/index'));
 
 app.use(middlewares.unknownEndpoint);
 app.use(middlewares.errorHandler);
