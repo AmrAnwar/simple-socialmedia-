@@ -11,7 +11,7 @@ const threadSchema = new mongoose.Schema(
 
 threadSchema.set('toJSON', {
     transform: (doc, obj) => {
-        obj.ـid = obj._id.toString();
+        obj.id = obj._id.toString();
         delete obj._id;
         delete obj.__v;
     }
