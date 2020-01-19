@@ -41,20 +41,8 @@ function errorHandler(error, request, response, next) {
 }
 
 function jsonPagination(request, response, next){
-    const default_limit = 10;
-    const default_offset = 0;
-    if (typeof request.query.limit !== 'undefined'){ 
-        request.query.limit = Number(request.query.limit);
-    }
-    else{
-        request.query.limit = default_limit;
-    }
-    if (typeof request.query.offset !== 'undefined'){ 
-        request.query.offset = Number(request.query.offset);
-    }
-    else{
-        request.query.offset = default_offset;
-    }
+    request.query.limit = request.query.limit ? Number(request.query.limit):10; 
+    request.query.offset = request.query.offset ? Number(request.query.offset):10; 
     next();
 }
 

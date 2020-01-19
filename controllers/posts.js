@@ -2,13 +2,12 @@ const router = require('express').Router();
 // const mongoose = require('mongoose');
 const Post = require('../models/post');
 const middlewares = require('../utils/middlewares');
+const postRouter = require('express').Router();
 
-router.get('/', middlewares.jsonPagination, (request, response, next) => {
-    Post.find({}, (err, posts) => {
-        response.json(posts);
-    })
-        .limit(request.query.limit)
-        .skip(request.query.offset);
+postRouter.get('/', middlewares.jsonPagination, async (request, response, next) => {
+    const posts_query = await  Post.find({})
+                        .limit(request.query.limit).skip(request.query.offset);
+    return response.status(200).json(posts_query);
 });
 
-module.exports = router;
+module.exports = postRouter;
