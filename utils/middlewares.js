@@ -42,7 +42,7 @@ function errorHandler(error, request, response, next) {
 
 function jsonPagination(request, response, next){
     request.query.limit = request.query.limit ? Number(request.query.limit):10; 
-    request.query.offset = request.query.offset ? Number(request.query.offset):10; 
+    request.query.offset = request.query.offset ? Number(request.query.offset):0; 
     next();
 }
 
