@@ -84,14 +84,14 @@ describe('Invalid POST Requests', () => {
         invalidNewUser({
             email: 'user_new@user.com',
             password: '123456789',
-        }, 'Path `username` is required')
+        }, 'missing username')
     );
 
     test('missing email results in 400 bad request',
         invalidNewUser({
             username: 'user_new',
             password: '123456789',
-        }, 'Path `email` is required')
+        }, 'missing email')
     );
 
     test('short password results in 400 bad request',
@@ -107,7 +107,7 @@ describe('Invalid POST Requests', () => {
             username: 'us',
             email: 'user_new@user.com',
             password: '123456789',
-        }, 'shorter than the minimum allowed')
+        }, 'username must be at least three characters long')
     );
 
     test('malformed username results in 400 bad request (1)',
