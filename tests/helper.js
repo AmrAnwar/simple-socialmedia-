@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const User = require('../models/user');
 
 const initialUsers = [
@@ -23,12 +25,27 @@ const initialUsers = [
     }
 ];
 
+const initializeUsers = async () => {
+    await User.deleteMany({});
+
+    const users = initialUsers.map(user => {
+        return new User({
+            username: user.username,
+            email: user.email,
+            hash: bcrypt.hashSync(user.password, 8),
+            posts: [],
+        }).save();
+    });
+
+    await Promise.all(users);
+};
+
 const usersInDB = async () => {
     const users = await User.find({});
     return users.map(user => user.toJSON());
 };
 
 module.exports = {
-    initialUsers,
+    initializeUsers,
     usersInDB,
 };
