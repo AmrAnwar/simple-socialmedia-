@@ -1,26 +1,13 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
-const bcrypt = require('bcrypt');
 
-const User = require('../models/user');
 const app = require('../app');
 const helper = require('./helper');
 
 const api = supertest(app);
 
 beforeEach(async () => {
-    await User.deleteMany({});
-
-    const users = helper.initialUsers.map(user => {
-        return new User({
-            username: user.username,
-            email: user.email,
-            hash: bcrypt.hashSync(user.password, 8),
-            posts: [],
-        }).save();
-    });
-
-    await Promise.all(users);
+    await helper.initializeUsers();
 });
 
 test('successful login results in 200 OK and returns a token', async () => {

@@ -7,18 +7,17 @@ const userSchema = new mongoose.Schema(
             type: String,
             lowercase: true,
             unique: true,
-            minglength: 3,
-            required: [ true, 'can\'t be blank' ],
-            match: [ /^\w[a-zA-Z0-9]*$/, 'username is invalid' ],
+            minlength: [3, 'username must be at least three characters long'],
+            required: [ true, 'missing username' ],
+            match: [ /^[_a-zA-Z]\w*$/, 'invalid username' ],
             index: true
         },
         email: {
             type: String,
             lowercase: true,
             unique: true,
-            minglength: 6,
-            required: [ true, 'can not be blank' ],
-            match: [ /\S+@\S+\.\S+/, 'email is invalid' ],
+            required: [ true, 'missing email' ],
+            match: [ /\S+@\S+\.\S+/, 'invalid email' ],
             index: true
         },
         posts: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Post' } ],
