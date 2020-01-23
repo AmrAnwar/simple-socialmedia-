@@ -48,6 +48,19 @@ test('valid POST requests add a new user and return 201 created', async () => {
     expect(emails).toContain(newUser.email);
 });
 
+test('GET request by user id returns the requested user properly', async () => {
+    const toBeRequested = (await helper.usersInDB())[0];
+    console.log(toBeRequested.id);
+    const response = await api
+        .get(`/api/users/${toBeRequested.id}`)
+        .expect(200)
+        .expect('Content-Type', /json/);
+
+    expect(response.body.id).toBe(toBeRequested.id);
+    expect(response.body.username).toBe(toBeRequested.username);
+    expect(response.body.email).toBe(toBeRequested.email);
+});
+
 //
 // return a test function that perform a POST request
 // to '/api/users' with the new user payload expecting

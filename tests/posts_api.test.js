@@ -14,9 +14,9 @@ beforeEach(async () => {
     await User.deleteMany({});
 
     const author = await new User({
-        username: "user1",
-        email: "user1@user.com",
-        hash: bcrypt.hashSync("456789123", 8),
+        username: 'user1',
+        email: 'user1@user.com',
+        hash: bcrypt.hashSync('456789123', 8),
         posts: [],
     }).save();
 
@@ -32,25 +32,26 @@ beforeEach(async () => {
 });
 
 test('get /api/posts', async () => {
-
     const response = await api
         .get('/api/posts')
         .expect(200)
         .expect('Content-Type', /json/);
-    expect(response.text).toContain("testing post4");
+
+    expect(response.text).toContain('testing post4');
     expect(typeof response.body).toEqual(typeof []);
     expect(response.body).not.toEqual([]);
     expect(response.body.length).toBe(10);
-
 });
 
 test('get /api/posts?limit=5', async () => {
-
     const response = await api
         .get('/api/posts?limit=5')
         .expect(200)
         .expect('Content-Type', /json/);
 
     expect(response.body.length).toBe(5);
+});
 
+afterAll(() => {
+    mongoose.connection.close();
 });
