@@ -32,7 +32,7 @@ postRouter.get('/', middlewares.jsonPagination, async (request, response) => {
 
 
 
-//theards code
+//Threads
 
 
 postRouter.get('/:postId/threads', async (request, response, next) => {
@@ -49,6 +49,7 @@ postRouter.post('/:postId/threads', async (request, response, next) => {
     try {
         const currentPost = request.post;
         //request.body.author = request.user._id;
+        request.body.parentPost = currentPost._id;
         const newThread = await Thread.create(request.body);
         currentPost.threads.push(newThread._id);
         await currentPost.save();
@@ -62,10 +63,9 @@ postRouter.post('/:postId/threads', async (request, response, next) => {
 postRouter.get('/:postId/threads/:threadId', async (request, response, next) => {
     try {
         const currentThread = await Thread.findById(request.params.threadId);
-        //check the thread is exist and it's on the same post [need refactor]
+        //check the thread is exist and it's on the same post
         if (currentThread
-        //&& currentPost
-        //     .threads.find(id => id.equals(currentThread._id))
+        && request.post._id.equals(currentThread._id)
         ) {
             response.status(200).json(currentThread);
         } else {
@@ -76,27 +76,5 @@ postRouter.get('/:postId/threads/:threadId', async (request, response, next) => 
     }
 });
 
-postRouter.post('/:postId/threads/:threadId', async (request, response, next) => {
-    try {
-        const currentThread = await Thread.findById(request.params.threadId);
-        // const currentPost = request.post;
-        //check the thread is exist and it's on the same post [need refactor]
-        if (currentThread
-        //&& currentPost
-        //     .threads.find(id => id.equals(currentThread._id))
-        ) {
-
-            //request.body.author = request.user._id;
-            const newThread = await Thread.create(request.body);
-            currentThread.threads.push(newThread._id);
-            await currentThread.save();
-            response.status(201).json(newThread);
-        } else {
-            next(new Error('No thread with that id'));
-        }
-    } catch (err) {
-        next(err);
-    }
-});
 
 module.exports = postRouter;

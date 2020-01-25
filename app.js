@@ -9,6 +9,7 @@ const middlewares = require('./utils/middlewares');
 const loginRouter = require('./controllers/login');
 const usersRouter = require('./controllers/users');
 const postsRouter = require('./controllers/posts');
+const threadsRouter = require('./controllers/threads');
 
 console.log('[*] connecting to MongoDB ...');
 mongoose.connect(config.MONGODB_URI, config.DBConfig)
@@ -29,6 +30,7 @@ app.use(middlewares.requestLogger);
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter);
+app.use('/api/threads', threadsRouter);
 
 app.use(middlewares.unknownEndpoint);
 app.use(middlewares.errorHandler);
