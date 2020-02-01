@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const config = require('./config');
-const User = require('../models/user');
 
 function requestLogger(request, response, next) {
     console.log('Method:', request.method);
@@ -56,11 +55,7 @@ function jsonPagination(request, response, next){
 
 function getUser(request, response, next){
     // TODO? hanlde error
-    const user_json = jwt.verify(request.token, config.SECRET);
-    User.findById(user_json.id).then((user) => {
-        console.log(user);
-        request.user = user;
-    }).catch(next);
+    request.user = jwt.verify(request.token, config.SECRET);
     next();
 }
 

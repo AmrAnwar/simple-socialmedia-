@@ -27,10 +27,30 @@ postRouter.get('/', middlewares.jsonPagination, async (request, response) => {
         .skip(request.query.offset)
         .sort({ createdAt: 'desc' });
 
-    return response.status(200).json(posts_query);
+    return response.status(200).json(
+        { posts: posts_query }
+    );
 });
 
 
+
+postRouter.post('/',middlewares.getUser, async(request, response) => {
+    const { body } = request.body;
+    if ( !body ) {
+        return response.status(401).json({
+            error: 'missing post body',
+        });
+    }
+    console.log(request.user);
+    let post = await new Post({
+        body: body,
+        author: request.user.id,
+        threads: [],
+    }).save();
+    return response.status(200).json(
+        { post: post }
+    );
+});
 
 //Threads
 
