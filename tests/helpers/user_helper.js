@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
-const User = require('../models/user');
-const Post = require('../models/post');
+const User = require('../../models/user');
+
 
 const initialUsers = [
     {
@@ -26,38 +26,7 @@ const initialUsers = [
     }
 ];
 
-const initialPosts = [
-    {
-        body: 'testing post1',
-    },
-    {
-        body: 'testing post2',
-    },
-    {
-        body: 'testing post3',
-    },
-    {
-        body: 'testing post4',
-    },
-    {
-        body: 'testing post5',
-    },
-    {
-        body: 'testing post6',
-    },
-    {
-        body: 'testing post7',
-    },
-    {
-        body: 'testing post8',
-    },
-    {
-        body: 'testing post9',
-    },
-    {
-        body: 'testing post10',
-    },
-]
+
 
 const initializeUsers = async () => {
     await User.deleteMany({});
@@ -79,9 +48,19 @@ const usersInDB = async () => {
     return users.map(user => user.toJSON());
 };
 
+const oneUserInDb = async () => {
+    const user = await new User({
+        username: initialUsers[0].username,
+        email: initialUsers[0].email,
+        hash: bcrypt.hashSync(initialUsers[0].password, 8),
+        posts: [],
+    }).save();
+    return user.toJSON();
+};
+
 
 module.exports = {
     initializeUsers,
     usersInDB,
-    initialPosts,
+    oneUserInDb
 };

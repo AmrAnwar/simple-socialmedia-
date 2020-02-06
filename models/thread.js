@@ -2,11 +2,9 @@ const mongoose = require('mongoose');
 
 const threadSchema = new mongoose.Schema(
     {
-        parentPost: { type: mongoose.Schema.Types.ObjectId , ref: 'Post' },
+        parentPost: { type: mongoose.Schema.Types.ObjectId , ref: 'Post', required: true },
         parentThread: { type: mongoose.Schema.Types.ObjectId , ref: 'Thread' },
         body: { type: String, required: true },
-        threads: [ { type: mongoose.Schema.Types.ObjectId,
-            ref: 'Thread' } ],
         author: { type: mongoose.Schema.Types.ObjectId,
             ref: 'User' }
     },
